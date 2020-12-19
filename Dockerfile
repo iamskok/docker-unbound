@@ -1,15 +1,16 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN apt-get update -y \
-  && apt-get upgrade -y \
-  && apt-get install -y \
+WORKDIR /var/lib 
+
+RUN apk add --update --no-cache \
   unbound \
-  dnsutils \
+  drill \
   wget
 
 # Get the latest list of root servers
-RUN wget https://www.internic.net/domain/named.root -qO- > /var/lib/unbound/root.hints \
-  && chown -R unbound /var/lib/unbound/root.hints
+RUN mkdir unbound \
+  && wget https://www.internic.net/domain/named.root -qO- > unbound/root.hints \
+  && chown -R unbound unbound
 
 # Create log file
 RUN mkdir /var/log/unbound \

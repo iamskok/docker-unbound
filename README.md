@@ -1,9 +1,13 @@
 Change verbosity level
 Set RAM and CPU cores for each container
+0.0.0.0 vs 127.0.0.0
 
 ```
 dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5335
 dig sigok.verteiltesysteme.net @127.0.0.1 -p 5335
+
+drill -p 5335 sigfail.verteiltesysteme.net @127.0.0.1
+drill -p 5335 sigok.verteiltesysteme.net @127.0.0.1
 ```
 
 - Test perf `time dig bloomberg.com`
