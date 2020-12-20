@@ -1,3 +1,9 @@
+To fix `so-rcvbuf 1048576 was not granted` warning run container in `priviledged` mode.
+
+```
+docker run --privileged iamskok/unbound
+```
+
 - Unbound is throwing error when the image is pulled from registry (runs locally)
   - docker inspect / logs to find out the reason
 - Fix `so-rcvbuf 1048576 was not granted` warning
