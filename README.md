@@ -1,6 +1,8 @@
-Change verbosity level
-Set RAM and CPU cores for each container
-0.0.0.0 vs 127.0.0.0
+- Change verbosity level
+- Set RAM and CPU cores for each container
+- 0.0.0.0 vs 127.0.0.0
+- Fix `so-rcvbuf 1048576 was not granted` warning https://www.reddit.com/r/pihole/comments/avtocx/unbound_problem/ehi3orv/
+- Test perf https://github.com/jedisct1/dnsblast
 
 ```
 dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5335
@@ -18,3 +20,4 @@ Links
 - https://gitlab.com/klutchell/unbound
 - DNSSEC algorithm check https://www.rootcanary.org/test.html
 - DNS types https://www.cloudflare.com/learning/dns/dns-server-types/
+- Unbound config example https://github.com/MatthewVance/unbound-docker/issues/21#issuecomment-508919167

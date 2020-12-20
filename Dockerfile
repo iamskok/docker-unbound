@@ -1,28 +1,19 @@
 FROM alpine:latest
 
-WORKDIR /var/lib 
+ENV ROOT_HINTS https://www.internic.net/domain/named.root
 
 RUN apk add --update --no-cache \
   unbound \
-  drill \
-  wget
+  wget \
+  drill
 
-# Get the latest list of root servers
-RUN mkdir unbound \
-  && wget https://www.internic.net/domain/named.root -qO- > unbound/root.hints \
-  && chown -R unbound unbound
+WORKDIR /etc/unbound
 
-# Create log file
-RUN mkdir /var/log/unbound \
-  && touch /var/log/unbound/unbound.log \
-  && chown -R unbound /var/log/unbound
+COPY root.key unbound.conf ./
 
-# Copy root.key
-RUN mkdir /var/unbound \
-  && mkdir /var/unbound/etc
-COPY root.key /var/unbound/etc
-RUN chown unbound /var/unbound/etc
-
-COPY unbound.conf /etc/unbound/unbound.conf
+RUN unlink root.hints \
+  && wget ${ROOT_HINTS} -qO- | tee root.hints \
+  && touch unbound.log \
+  && chown -R unbound .
 
 CMD ["unbound", "-d"]
