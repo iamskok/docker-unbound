@@ -1,15 +1,25 @@
+- Unbound is throwing error when the image is pulled from registry (runs locally)
+  - docker inspect / logs to find out the reason
+- Fix `so-rcvbuf 1048576 was not granted` warning
+  - https://www.reddit.com/r/pihole/comments/avtocx/unbound_problem/ehi3orv/
+  - https://wiki.alpinelinux.org/wiki/Sysctl.conf
+  - https://askubuntu.com/questions/1285370/trying-to-allocate-more-ram-to-unbound-and-getting-a-warning-to-fix-start-with
+- Possibly will have this issue https://stackoverflow.com/questions/54066522/pihole-and-unbound-in-docker-containers-unbound-not-receiving-requests
+- Use port 53 instead of 5335?
 - Change verbosity level
 - Set RAM and CPU cores for each container
 - 0.0.0.0 vs 127.0.0.0
-- Fix `so-rcvbuf 1048576 was not granted` warning https://www.reddit.com/r/pihole/comments/avtocx/unbound_problem/ehi3orv/
 - Test perf https://github.com/jedisct1/dnsblast
 
 ```
+dig sigfail.verteiltesysteme.net @0.0.0.0 -p 53
+dig sigok.verteiltesysteme.net @0.0.0.0 -p 53
+
 dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5335
 dig sigok.verteiltesysteme.net @127.0.0.1 -p 5335
 
-drill -p 5335 sigfail.verteiltesysteme.net @127.0.0.1
-drill -p 5335 sigok.verteiltesysteme.net @127.0.0.1
+drill -p 53 sigfail.verteiltesysteme.net @127.0.0.1
+drill -p 53 sigok.verteiltesysteme.net @127.0.0.1
 ```
 
 - Test perf `time dig bloomberg.com`
